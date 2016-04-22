@@ -86,9 +86,9 @@
 			children = (
 				C7A30EA11CC9205200C33304 /* jswiftson.h */,
 				C7A30EA31CC9205200C33304 /* Info.plist */,
+				C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */,
 				C7A30EB81CC9208E00C33304 /* JSSLexer.swift */,
 				C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */,
-				C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */,
 			);
 			path = jswiftson;
 			sourceTree = "<group>";
