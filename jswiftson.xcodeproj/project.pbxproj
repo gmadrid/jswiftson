@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C7093A7B1CCA706E008F3AE7 /* JSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */; };
+		C7093A7D1CCA73AC008F3AE7 /* JSSTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */; };
+		C7093A7E1CCA7930008F3AE7 /* JSSTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */; };
+		C7093A7F1CCA7C4D008F3AE7 /* JSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */; };
+		C7093A811CCA873E008F3AE7 /* JSSTreeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A801CCA873E008F3AE7 /* JSSTreeTests.swift */; };
 		C7A30EA21CC9205200C33304 /* jswiftson.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A30EA11CC9205200C33304 /* jswiftson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C7A30EA91CC9205300C33304 /* jswiftson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A30E9E1CC9205200C33304 /* jswiftson.framework */; };
-		C7A30EAE1CC9205300C33304 /* jswiftsonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EAD1CC9205300C33304 /* jswiftsonTests.swift */; };
+		C7A30EB91CC9208E00C33304 /* JSSLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EB81CC9208E00C33304 /* JSSLexer.swift */; };
+		C7A30EBB1CC928E600C33304 /* JSSLexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */; };
+		C7B5F7D71CC9DAA8006CD9F2 /* JSSLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EB81CC9208E00C33304 /* JSSLexer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +30,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSParser.swift; sourceTree = "<group>"; };
+		C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSTree.swift; sourceTree = "<group>"; };
+		C7093A801CCA873E008F3AE7 /* JSSTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSTreeTests.swift; sourceTree = "<group>"; };
 		C7A30E9E1CC9205200C33304 /* jswiftson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = jswiftson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A30EA11CC9205200C33304 /* jswiftson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jswiftson.h; sourceTree = "<group>"; };
 		C7A30EA31CC9205200C33304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C7A30EA81CC9205300C33304 /* jswiftsonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = jswiftsonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C7A30EAD1CC9205300C33304 /* jswiftsonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = jswiftsonTests.swift; sourceTree = "<group>"; };
 		C7A30EAF1CC9205300C33304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C7A30EB81CC9208E00C33304 /* JSSLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSLexer.swift; sourceTree = "<group>"; };
+		C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSLexerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +84,9 @@
 			children = (
 				C7A30EA11CC9205200C33304 /* jswiftson.h */,
 				C7A30EA31CC9205200C33304 /* Info.plist */,
+				C7A30EB81CC9208E00C33304 /* JSSLexer.swift */,
+				C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */,
+				C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */,
 			);
 			path = jswiftson;
 			sourceTree = "<group>";
@@ -80,7 +94,8 @@
 		C7A30EAC1CC9205300C33304 /* jswiftsonTests */ = {
 			isa = PBXGroup;
 			children = (
-				C7A30EAD1CC9205300C33304 /* jswiftsonTests.swift */,
+				C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */,
+				C7093A801CCA873E008F3AE7 /* JSSTreeTests.swift */,
 				C7A30EAF1CC9205300C33304 /* Info.plist */,
 			);
 			path = jswiftsonTests;
@@ -194,6 +209,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7093A7D1CCA73AC008F3AE7 /* JSSTree.swift in Sources */,
+				C7A30EB91CC9208E00C33304 /* JSSLexer.swift in Sources */,
+				C7093A7B1CCA706E008F3AE7 /* JSSParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +219,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7A30EAE1CC9205300C33304 /* jswiftsonTests.swift in Sources */,
+				C7093A7E1CCA7930008F3AE7 /* JSSTree.swift in Sources */,
+				C7093A811CCA873E008F3AE7 /* JSSTreeTests.swift in Sources */,
+				C7A30EBB1CC928E600C33304 /* JSSLexerTests.swift in Sources */,
+				C7B5F7D71CC9DAA8006CD9F2 /* JSSLexer.swift in Sources */,
+				C7093A7F1CCA7C4D008F3AE7 /* JSSParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +329,7 @@
 		C7A30EB31CC9205300C33304 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -319,12 +342,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.me.jswiftson;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		C7A30EB41CC9205300C33304 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -381,6 +406,7 @@
 				C7A30EB41CC9205300C33304 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C7A30EB51CC9205300C33304 /* Build configuration list for PBXNativeTarget "jswiftsonTests" */ = {
 			isa = XCConfigurationList;
@@ -389,6 +415,7 @@
 				C7A30EB71CC9205300C33304 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
