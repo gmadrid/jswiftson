@@ -22,4 +22,10 @@ class JSSParserTests: XCTestCase {
     XCTAssertNotNil(try parser.parse())
   }
 
+  func testArrayParse() {
+    let json = "{ \"foo\": [ true, false, null ] }"
+    let parser = JSSParser(json)
+    XCTAssertNotNil(try parser.parse())
+  }
+
 }

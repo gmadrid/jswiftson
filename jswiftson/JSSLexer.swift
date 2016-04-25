@@ -228,6 +228,10 @@ class JSSLexer {
     return result
   }
 
+  /** We match String by looking for valid characters and escape sequences between two (unescaped)
+   *  quotes. This code is simpler than a real JSON parser would be since we are not _interpreting_
+   *  the escape codes. We are just ingesting them so that we can print them out verbatim.
+   */
   func matchString() throws -> JSSToken? {
     // String always starts with a quote.
     guard input[input.startIndex] == "\"" else {

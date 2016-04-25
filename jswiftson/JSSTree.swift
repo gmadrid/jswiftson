@@ -112,9 +112,9 @@ func ==<T,U where T : Atomic, U : Atomic>(lhs: T, rhs: U) -> Bool {
 }
 
 class JSSEOS : JSSToken, Equatable, Atomic {}
-class JSSTrue : JSSToken, Equatable, Atomic {}
-class JSSFalse : JSSToken, Equatable, Atomic {}
-class JSSNull : JSSToken, Equatable, Atomic {}
+class JSSTrue : JSSToken, JSSValue, Equatable, Atomic {}
+class JSSFalse : JSSToken, JSSValue, Equatable, Atomic {}
+class JSSNull : JSSToken, JSSValue, Equatable, Atomic {}
 class JSSLBrack : JSSToken, Equatable, Atomic {}
 class JSSRBrack : JSSToken, Equatable, Atomic {}
 class JSSLCurly : JSSToken, Equatable, Atomic {}
