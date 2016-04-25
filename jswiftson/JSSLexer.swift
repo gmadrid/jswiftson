@@ -31,8 +31,7 @@ class JSSLexer {
       return result!
     }
 
-    result = skipWhite()
-    if result != nil { return result! }
+    skipWhite()
 
     result = matchEOS()
     if result != nil { return result! }
@@ -59,7 +58,7 @@ class JSSLexer {
     throw NSError(domain: "jswiftson", code: 1, userInfo: nil)
   }
 
-  func skipWhite() -> JSSToken? {
+  func skipWhite() {
     // This function always returns nil, but returns JSSToken so that it can be chained with matchers.
     let firstNonWhiteIndex_ = input.indexOf { foo in
       return !" \t\n\r".characters.contains(foo)
@@ -67,12 +66,12 @@ class JSSLexer {
     guard let firstNonWhiteIndex = firstNonWhiteIndex_ else {
       // If we find no non-ws chars, then there is nothing left.
       input = JSSLexer.emptyChars
-      return nil
+      return
     }
     if firstNonWhiteIndex != input.startIndex {
       input = input.suffixFrom(firstNonWhiteIndex)
     }
-    return nil
+    return
   }
 
   func matchSymbol() -> JSSToken? {

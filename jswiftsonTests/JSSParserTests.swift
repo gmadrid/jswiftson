@@ -15,4 +15,11 @@ class JSSParserTests: XCTestCase {
     let parser = JSSParser(json)
     XCTAssertNotNil(try parser.parse())
   }
+
+  func testDeeperParse() {
+    let json = "{ \"foo\": 3, \"bar\": \"quux\", \"frob\": { \"baz\": 3.1415927, \"foo\": \"\" } }"
+    let parser = JSSParser(json)
+    XCTAssertNotNil(try parser.parse())
+  }
+
 }

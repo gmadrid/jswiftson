@@ -20,15 +20,13 @@ class JSSParser {
   }
 
   func parse() throws -> JSSObject {
-    guard let obj = try matchObject() else {
-      throw parseError()
-    }
+    let obj = try matchObject()
     return obj
   }
 
-  func matchObject() throws -> JSSObject? {
+  func matchObject() throws -> JSSObject {
     guard let _ = try lexer.peekToken() as? JSSLCurly else {
-      return nil
+      throw parseError()
     }
     try lexer.nextToken()
 
@@ -44,9 +42,7 @@ class JSSParser {
         throw parseError()
       }
 
-      guard let value = try lexer.nextToken() as? JSSValue else {
-        throw parseError()
-      }
+      let value = try parseValue()
 
       pairs.append(JSSPair(str: strKey, val: value))
 
@@ -64,7 +60,38 @@ class JSSParser {
     return JSSObject(pairs)
   }
 
-  func matchArray() throws -> JSSArray? {
+  // If the passed token is type T, then consume and return it.
+  func checkAndReturn<T>(token: JSSToken) throws -> T? {
+    guard let result = token as? T else {
+      return nil
+    }
+    try lexer.nextToken()
+    return result
+  }
+
+  func parseValue() throws -> JSSValue {
+    let peek = try lexer.peekToken();
+
+    // Check the simple tokens.
+    if let str: JSSString = try checkAndReturn(peek) { return str }
+    if let num: JSSNumber = try checkAndReturn(peek) { return num }
+    if let tru: JSSNumber = try checkAndReturn(peek) { return tru }
+    if let fals: JSSNumber = try checkAndReturn(peek) { return fals }
+    if let nll: JSSNumber = try checkAndReturn(peek) { return nll }
+
+    // Check for subarray
+    if let _ = peek as? JSSLBrack {
+      return try matchArray()
+    }
+
+    if let _ = peek as? JSSLCurly {
+      return try matchObject()
+    }
+
+    throw parseError()
+  }
+
+  func matchArray() throws -> JSSArray {
     guard let _ = try lexer.peekToken() as? JSSLBrack else {
       throw parseError()
     }

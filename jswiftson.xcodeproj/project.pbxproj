@@ -96,10 +96,10 @@
 		C7A30EAC1CC9205300C33304 /* jswiftsonTests */ = {
 			isa = PBXGroup;
 			children = (
-				C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */,
 				C7093A801CCA873E008F3AE7 /* JSSTreeTests.swift */,
-				C7A30EAF1CC9205300C33304 /* Info.plist */,
+				C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */,
 				C7CAC02E1CCAAA2D000FB738 /* JSSParserTests.swift */,
+				C7A30EAF1CC9205300C33304 /* Info.plist */,
 			);
 			path = jswiftsonTests;
 			sourceTree = "<group>";
