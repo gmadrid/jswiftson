@@ -18,6 +18,34 @@ class TreeNode {
   }
 }
 
+func showTreeGrouped(node: TreeNode) -> Doc {
+  let str = node.str
+
+  return docGroup(docText(str) <> docNest(str.characters.count, showBracketGrouped(node.children)))
+}
+
+func showBracketGrouped(children: [TreeNode]) -> Doc {
+  if children.isEmpty {
+    return docNil()
+  }
+
+  return docText("[")
+    <> docNest(1, showTreesGrouped(children))
+    <> docText("]")
+}
+
+// children MUST NEVER be empty
+func showTreesGrouped(children: [TreeNode]) -> Doc {
+  if children.count < 2 {
+    return showTreeGrouped(children.first!)
+  }
+
+  return showTreeGrouped(children.first!)
+    <> docText(",")
+    <> docLine()
+    <> showTreesGrouped(Array(children.dropFirst(1)))
+}
+
 func showTree(node: TreeNode) -> Doc {
   let str = node.str
 
@@ -167,21 +195,84 @@ class DocTests: XCTestCase {
     }
   }
 
-  func testBasic() {
+  func testLayout1() {
     let tree = TreeNode(str: "aaa", children: [
-      TreeNode(str: "bbbb", children: [
+      TreeNode(str: "bbbbb", children: [
         TreeNode(str: "ccc", children: []),
         TreeNode(str: "dd", children: [])
         ]),
       TreeNode(str: "eee", children: []),
       TreeNode(str: "ffff", children: [
-        TreeNode(str: "dd", children: []),
+        TreeNode(str: "gg", children: []),
         TreeNode(str: "hhh", children: []),
         TreeNode(str: "ii", children: [])
         ])
       ])
 
-    print(docLayout(showTree(tree)))
-    print(docLayout(showTreeB(tree)))
+    let layout = docLayout(showTree(tree))
+    let expectedLayout = [
+      "aaa[bbbbb[ccc,",
+      "          dd],",
+      "    eee,",
+      "    ffff[gg,",
+      "         hhh,",
+      "         ii]]"
+      ].joinWithSeparator("\n")
+    XCTAssertEqual(layout, expectedLayout)
+  }
+
+  func testLayout2() {
+    let tree = TreeNode(str: "aaa", children: [
+      TreeNode(str: "bbbbb", children: [
+        TreeNode(str: "ccc", children: []),
+        TreeNode(str: "dd", children: [])
+        ]),
+      TreeNode(str: "eee", children: []),
+      TreeNode(str: "ffff", children: [
+        TreeNode(str: "gg", children: []),
+        TreeNode(str: "hhh", children: []),
+        TreeNode(str: "ii", children: [])
+        ])
+      ])
+
+    let layout = docLayout(showTreeB(tree))
+    let expectedLayout = [
+      "aaa[",
+      "  bbbbb[",
+      "    ccc,",
+      "    dd",
+      "  ],",
+      "  eee,",
+      "  ffff[",
+      "    gg,",
+      "    hhh,",
+      "    ii",
+      "  ]",
+      "]"
+    ].joinWithSeparator("\n")
+    XCTAssertEqual(layout, expectedLayout)
+  }
+
+  func testPretty() {
+    let tree = TreeNode(str: "aaa", children: [
+      TreeNode(str: "bbbbb", children: [
+        TreeNode(str: "ccc", children: []),
+        TreeNode(str: "dd", children: [])
+        ]),
+      TreeNode(str: "eee", children: []),
+      TreeNode(str: "ffff", children: [
+        TreeNode(str: "gg", children: []),
+        TreeNode(str: "hhh", children: []),
+        TreeNode(str: "ii", children: [])
+        ])
+      ])
+
+    print(docPretty(80, doc: showTreeGrouped(tree)))
+    print(docPretty(50, doc: showTreeGrouped(tree)))
+    print(docPretty(30, doc: showTreeGrouped(tree)))
+    print(docPretty(20, doc: showTreeGrouped(tree)))
+    print(docPretty(15, doc: showTreeGrouped(tree)))
+    print(docPretty(10, doc: showTreeGrouped(tree)))
+
   }
 }

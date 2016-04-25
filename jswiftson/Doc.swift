@@ -12,7 +12,7 @@ indirect enum Doc {
   case Nil
   case Text(str: String, doc: Doc)
   case Line(i: Int, doc: Doc)
-//  case Union(x: Doc, y: Doc)
+  case Union(x: Doc, y: Doc)
 }
 
 func docNil() -> Doc {
@@ -39,6 +39,8 @@ func <>(doc1: Doc, doc2: Doc) -> Doc {
     return .Text(str: str, doc: ldoc <> doc2)
   case .Line(let i, let ldoc):
     return .Line(i: i, doc: ldoc <> doc2)
+  case .Union(let x, let y):
+    return .Union(x: x <> doc2, y: y <> doc2)
   }
 }
 
@@ -50,6 +52,8 @@ func docNest(i: Int, _ doc: Doc) -> Doc {
     return .Text(str: str, doc: docNest(i, ldoc))
   case .Line(let j, let ldoc):
     return .Line(i: i + j, doc: docNest(i, ldoc))
+  case .Union(let x, let y):
+    return .Union(x: docNest(i, x), y: docNest(i, y))
   }
 }
 
@@ -61,5 +65,74 @@ func docLayout(doc: Doc) -> String {
     return str + docLayout(ldoc)
   case .Line(let i, let ldoc):
     return "\n" + String(count:i, repeatedValue: Character(" ")) + docLayout(ldoc)
+  case .Union(_, let y):
+    return docLayout(y)  // Choose the non-flattened rep.
   }
+}
+
+func docGroup(doc: Doc) -> Doc {
+  switch doc {
+  case .Nil:
+    return doc
+  case .Line(let i, let x):
+    return .Union(x: .Text(str: " ", doc: docFlatten(x)), y: .Line(i: i, doc: x))
+  case .Text(let str, let doc):
+    return .Text(str: str, doc: docGroup(doc))
+  case .Union(let x, let y):
+    return .Union(x: docGroup(x), y: y)
+  }
+}
+
+func docFlatten(doc: Doc) -> Doc {
+  switch doc {
+  case .Nil:
+    return doc
+  case .Line(_, let x):
+    return .Text(str: " ", doc: docFlatten(x))
+  case .Text(let str, let doc):
+    return .Text(str: str, doc: docFlatten(doc))
+  case .Union(let x, _):
+    return docFlatten(x)
+  }
+}
+
+func docBest(width: Int, used: Int, doc: Doc) -> Doc {
+  switch doc {
+  case .Nil:
+    return doc
+  case .Line(let i, let doc):
+    return .Line(i: i, doc: docBest(width, used: i, doc: doc))
+  case .Text(let str, let doc):
+    return .Text(str: str, doc: docBest(width, used: used + str.characters.count, doc: doc))
+  case .Union(let x, let y):
+    return docBetter(width, used: used, x: docBest(width, used: used, doc: x), y: docBest(width, used: used, doc: y))
+  }
+}
+
+func docBetter(width: Int, used: Int, x: Doc, y: Doc) -> Doc {
+  if docFits(width - used, doc: x) {
+    return x
+  } else {
+    return y
+  }
+}
+
+func docFits(width: Int, doc: Doc) -> Bool {
+  if width < 0 { return false }
+
+  switch doc {
+  case .Nil:
+    return true
+  case .Text(let str, let doc):
+    return docFits(width - str.characters.count, doc: doc)
+  case .Line:
+    return true
+  default:
+    print("NEVER HAPPENS?!?!?!?!?!?")
+    return false  // never happens
+  }
+}
+
+func docPretty(width: Int, doc: Doc) -> String {
+  return docLayout(docBest(width, used: 0, doc: doc))
 }
