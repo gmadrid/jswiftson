@@ -103,7 +103,7 @@ func ==(lhs: JSSNumber, rhs: JSSNumber) -> Bool {
  */
 protocol Atomic {}
 
-/** Compare to Atomic objects by comparing their classes */
+/** Compare two Atomic objects by comparing their classes */
 func ==<T,U where T : Atomic, U : Atomic>(lhs: T, rhs: U) -> Bool {
   if let _ = rhs as? T {
     return true
