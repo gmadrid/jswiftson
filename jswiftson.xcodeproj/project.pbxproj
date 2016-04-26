@@ -15,6 +15,10 @@
 		C78DDAFE1CCE6C5000A80626 /* Doc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DDAFD1CCE6C5000A80626 /* Doc.swift */; };
 		C78DDB001CCE6C6600A80626 /* DocTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DDAFF1CCE6C6600A80626 /* DocTests.swift */; };
 		C78DDB011CCE6C6B00A80626 /* Doc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DDAFD1CCE6C5000A80626 /* Doc.swift */; };
+		C78DDB091CCFA9F500A80626 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DDB081CCFA9F500A80626 /* main.swift */; };
+		C78DDB0D1CCFAAD200A80626 /* JSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */; };
+		C78DDB0E1CCFAB1000A80626 /* JSSLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EB81CC9208E00C33304 /* JSSLexer.swift */; };
+		C78DDB0F1CCFAB1700A80626 /* JSSTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */; };
 		C7A30EA21CC9205200C33304 /* jswiftson.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A30EA11CC9205200C33304 /* jswiftson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C7A30EA91CC9205300C33304 /* jswiftson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7A30E9E1CC9205200C33304 /* jswiftson.framework */; };
 		C7A30EB91CC9208E00C33304 /* JSSLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EB81CC9208E00C33304 /* JSSLexer.swift */; };
@@ -33,12 +37,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		C78DDB041CCFA9F500A80626 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSParser.swift; sourceTree = "<group>"; };
 		C7093A7C1CCA73AC008F3AE7 /* JSSTree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSTree.swift; sourceTree = "<group>"; };
 		C7093A801CCA873E008F3AE7 /* JSSTreeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSTreeTests.swift; sourceTree = "<group>"; };
 		C78DDAFD1CCE6C5000A80626 /* Doc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Doc.swift; sourceTree = "<group>"; };
 		C78DDAFF1CCE6C6600A80626 /* DocTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocTests.swift; sourceTree = "<group>"; };
+		C78DDB061CCFA9F500A80626 /* jss */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = jss; sourceTree = BUILT_PRODUCTS_DIR; };
+		C78DDB081CCFA9F500A80626 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C7A30E9E1CC9205200C33304 /* jswiftson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = jswiftson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7A30EA11CC9205200C33304 /* jswiftson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = jswiftson.h; sourceTree = "<group>"; };
 		C7A30EA31CC9205200C33304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +68,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C78DDB031CCFA9F500A80626 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7A30E9A1CC9205200C33304 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -68,11 +93,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C78DDB071CCFA9F500A80626 /* jss */ = {
+			isa = PBXGroup;
+			children = (
+				C78DDB081CCFA9F500A80626 /* main.swift */,
+			);
+			path = jss;
+			sourceTree = "<group>";
+		};
 		C7A30E941CC9205200C33304 = {
 			isa = PBXGroup;
 			children = (
 				C7A30EA01CC9205200C33304 /* jswiftson */,
 				C7A30EAC1CC9205300C33304 /* jswiftsonTests */,
+				C78DDB071CCFA9F500A80626 /* jss */,
 				C7A30E9F1CC9205200C33304 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -82,6 +116,7 @@
 			children = (
 				C7A30E9E1CC9205200C33304 /* jswiftson.framework */,
 				C7A30EA81CC9205300C33304 /* jswiftsonTests.xctest */,
+				C78DDB061CCFA9F500A80626 /* jss */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +160,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C78DDB051CCFA9F500A80626 /* jss */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C78DDB0C1CCFA9F500A80626 /* Build configuration list for PBXNativeTarget "jss" */;
+			buildPhases = (
+				C78DDB021CCFA9F500A80626 /* Sources */,
+				C78DDB031CCFA9F500A80626 /* Frameworks */,
+				C78DDB041CCFA9F500A80626 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = jss;
+			productName = jss;
+			productReference = C78DDB061CCFA9F500A80626 /* jss */;
+			productType = "com.apple.product-type.tool";
+		};
 		C7A30E9D1CC9205200C33304 /* jswiftson */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C7A30EB21CC9205300C33304 /* Build configuration list for PBXNativeTarget "jswiftson" */;
@@ -171,6 +223,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "George Madrid";
 				TargetAttributes = {
+					C78DDB051CCFA9F500A80626 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					C7A30E9D1CC9205200C33304 = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -193,6 +248,7 @@
 			targets = (
 				C7A30E9D1CC9205200C33304 /* jswiftson */,
 				C7A30EA71CC9205300C33304 /* jswiftsonTests */,
+				C78DDB051CCFA9F500A80626 /* jss */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +271,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C78DDB021CCFA9F500A80626 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C78DDB0F1CCFAB1700A80626 /* JSSTree.swift in Sources */,
+				C78DDB091CCFA9F500A80626 /* main.swift in Sources */,
+				C78DDB0E1CCFAB1000A80626 /* JSSLexer.swift in Sources */,
+				C78DDB0D1CCFAAD200A80626 /* JSSParser.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C7A30E991CC9205200C33304 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,6 +319,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C78DDB0A1CCFA9F500A80626 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C78DDB0B1CCFA9F500A80626 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C7A30EB01CC9205300C33304 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -404,6 +485,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C78DDB0C1CCFA9F500A80626 /* Build configuration list for PBXNativeTarget "jss" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C78DDB0A1CCFA9F500A80626 /* Debug */,
+				C78DDB0B1CCFA9F500A80626 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		C7A30E981CC9205200C33304 /* Build configuration list for PBXProject "jswiftson" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -15,8 +15,11 @@ class JSSParser {
     lexer = JSSLexer(input: input)
   }
 
-  private func parseError() -> NSError {
-    return NSError(domain: "jswiftson", code: 10, userInfo: nil)
+  private func parseError(msg: String) -> NSError {
+    return NSError(domain: "jswiftson", code: 10, userInfo: [
+      NSLocalizedDescriptionKey: msg,
+      "JSSNextInput": lexer.nextInput(40)
+      ])
   }
 
   func parse() throws -> JSSObject {
@@ -26,7 +29,7 @@ class JSSParser {
 
   func matchObject() throws -> JSSObject {
     guard let _ = try lexer.peekToken() as? JSSLCurly else {
-      throw parseError()
+      throw parseError("Expected '{' but got \(try lexer.peekToken())")
     }
     try lexer.nextToken()
 
@@ -35,11 +38,11 @@ class JSSParser {
       // string ':' value [',']
       let key = try lexer.nextToken()
       guard let strKey = key as? JSSString else {
-        throw parseError()
+        throw parseError("Expecting STRING, but found \(key)")
       }
 
       guard let _ = try lexer.nextToken() as? JSSColon else {
-        throw parseError()
+        throw parseError("Expecting ':', but got \(key)")
       }
 
       let value = try parseValue()
@@ -53,8 +56,9 @@ class JSSParser {
     }
 
 
-    guard let _ = try lexer.nextToken() as? JSSRCurly else {
-      throw parseError()
+    let token = try lexer.nextToken()
+    guard let _ = token as? JSSRCurly else {
+      throw parseError("Expecting '}', but got \(token)")
     }
 
     return JSSObject(pairs)
@@ -88,20 +92,37 @@ class JSSParser {
       return try matchObject()
     }
 
-    throw parseError()
+    throw parseError("Expecting value type, but found \(peek)")
   }
 
   func matchArray() throws -> JSSArray {
     guard let _ = try lexer.peekToken() as? JSSLBrack else {
-      throw parseError()
+      throw parseError("Expecting '[', but found \(try lexer.peekToken())")
     }
     try lexer.nextToken()
 
     var values = [JSSValue]()
     while true {
       // value [',']
-      guard let val = try lexer.nextToken() as? JSSValue else {
-        throw parseError()
+      let token = try lexer.peekToken()
+      let val: JSSValue
+      if let v = token as? JSSValue {
+        // The token is an Atomic value, so we can return it directly.
+        val = v
+        try lexer.nextToken()  // consume the token
+      } else if let _ = token as? JSSLBrack {
+        // It's the start of an array.
+        val = try matchArray()
+      } else if let _ = token as? JSSLCurly {
+        // It's the start of an object.
+        val = try matchObject()
+      } else if let _ = token as? JSSRBrack {
+        // closing the array, break, but leave consuming the token to after the loop.
+        break
+      }
+      else {
+        // Doesn't match any expected token.
+        throw parseError("Expecting value in array, but found \(token)")
       }
 
       values.append(val)
@@ -112,8 +133,9 @@ class JSSParser {
       try lexer.nextToken()
     }
 
-    guard let _ = try lexer.nextToken() as? JSSRBrack else {
-      throw parseError()
+    let rbrack = try lexer.nextToken()
+    guard let _ = rbrack as? JSSRBrack else {
+      throw parseError("Expected ']', but found \(rbrack)")
     }
 
     return JSSArray(values)

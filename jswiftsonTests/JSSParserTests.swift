@@ -28,4 +28,16 @@ class JSSParserTests: XCTestCase {
     XCTAssertNotNil(try parser.parse())
   }
 
+  func testArrayOfObjects() {
+    let json = "{ \"foo\": [ {\"a\":1 }, {\"b\":2}, {\"c\":\"C\"} ] }"
+    let parser = JSSParser(json)
+    XCTAssertNotNil(try parser.parse())
+  }
+
+  func testEmptyArray() {
+    let json = "{ \"array\": [], \"bam\": 3 }"
+    let parser = JSSParser(json)
+    XCTAssertNotNil(try parser.parse())
+  }
+
 }

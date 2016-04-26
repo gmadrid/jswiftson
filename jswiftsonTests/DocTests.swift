@@ -184,7 +184,6 @@ class DocTests: XCTestCase {
       let head = "{ \"foo\": 3, \"bar\": \"quux\", \"frob\": { \"baz\": 3.1415927, \"foo\": "
       let arr = "[ true, false, null, 2.71828, \"textinarray\" ]"
       let tail = " } }"
-      print (head + arr + tail)
       let parser = JSSParser(head + arr + tail)
       let jtree = try parser.parse()
 

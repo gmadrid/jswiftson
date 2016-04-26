@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>jss.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>jswiftson.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>C78DDB051CCFA9F500A80626</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C7A30E9D1CC9205200C33304</key>
 		<dict>
 			<key>primary</key>

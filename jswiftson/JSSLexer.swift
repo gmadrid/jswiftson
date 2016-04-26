@@ -8,13 +8,81 @@
 
 import Foundation
 
+/** Allows efficient character-by-character input on a String.CharacterView with peeking */
+class CharacterInput {
+  var input: String.CharacterView
+  var currIndex: String.CharacterView.Index
+
+  var first: Character? {
+    guard !isEmpty else { return nil }
+    return input[currIndex]
+  }
+  var startIndex: String.CharacterView.Index {
+    return currIndex
+  }
+  var isEmpty: Bool {
+    return !(currIndex < input.endIndex)
+  }
+  var currInputToEnd: String.CharacterView {
+    return self.input[self.currIndex..<input.endIndex]
+  }
+
+  init(_ input: String) {
+    self.input = input.characters
+    self.currIndex = self.input.startIndex
+  }
+
+  func nextInput(num: Int) -> String {
+    let nIndex = currIndex.advancedBy(num)
+    let index = min(nIndex, input.endIndex)
+    return String(input[currIndex..<index])
+  }
+
+  func prefixToIndex(index: String.CharacterView.Index) -> String.CharacterView {
+    return input[currIndex..<index]
+  }
+
+  func indexOf(@noescape predicate: (ch: Character) -> Bool) -> String.CharacterView.Index? {
+    var index = currIndex
+    let end = input.endIndex
+    while index < end {
+      if predicate(ch: input[index]) {
+        return index
+      }
+      index = index.advancedBy(1)
+    }
+    return nil
+  }
+
+  func startsWith(prefix: String.CharacterView) -> Bool {
+    return currInputToEnd.startsWith(prefix)
+  }
+
+  func eat(n: Int = 1) {
+    eatToIndex(currIndex.advancedBy(n))
+  }
+
+  func eatToIndex(index: String.CharacterView.Index) {
+    self.currIndex = index
+  }
+
+  func eatToEnd() {
+    eatToIndex(input.endIndex)
+  }
+}
+
 class JSSLexer {
   // The input string as characters. These will be consumed as they are matched.
-  var input: String.CharacterView
+//  var inputt: String.CharacterView
+  var cInput: CharacterInput
   var peekedToken: JSSToken?
 
   init(input: String) {
-    self.input = input.characters
+    self.cInput = CharacterInput(input)
+  }
+
+  func nextInput(num: Int) -> String {
+    return cInput.nextInput(num)
   }
 
   func peekToken() throws -> JSSToken {
@@ -60,22 +128,20 @@ class JSSLexer {
 
   func skipWhite() {
     // This function always returns nil, but returns JSSToken so that it can be chained with matchers.
-    let firstNonWhiteIndex_ = input.indexOf { foo in
+    let firstNonWhiteIndex_ = cInput.indexOf { foo in
       return !" \t\n\r".characters.contains(foo)
     }
     guard let firstNonWhiteIndex = firstNonWhiteIndex_ else {
       // If we find no non-ws chars, then there is nothing left.
-      input = JSSLexer.emptyChars
+      cInput.eatToEnd()
       return
     }
-    if firstNonWhiteIndex != input.startIndex {
-      input = input.suffixFrom(firstNonWhiteIndex)
-    }
+    cInput.eatToIndex(firstNonWhiteIndex)
     return
   }
 
   func matchSymbol() -> JSSToken? {
-    guard let ch = input.first else {
+    guard let ch = cInput.first else {
       return nil
     }
     let result: JSSToken
@@ -95,43 +161,40 @@ class JSSLexer {
     default:
       return nil
     }
-    chopFront(1)
+    cInput.eat()
     return result
   }
 
   func matchEOS() -> JSSToken? {
-    if input.isEmpty { return JSSEOS() }
+    if cInput.isEmpty { return JSSEOS() }
     return nil
   }
 
-  private static let emptyChars = "".characters
-  private func chopFront(n: Int) {
-    input.replaceRange(input.startIndex ..< input.startIndex.advancedBy(n), with: JSSLexer.emptyChars)
-  }
-
   private static let trueChars: String.CharacterView = "true".characters
+  private static let trueCount = JSSLexer.trueChars.count
   func matchTrue() -> JSSToken? {
-    let match = JSSLexer.trueChars
-    if input.startsWith(match) {
-      chopFront(match.count)
+    if cInput.startsWith(JSSLexer.trueChars) {
+      cInput.eat(JSSLexer.trueCount)
       return JSSTrue()
     }
     return nil
   }
 
   private static let falseChars: String.CharacterView = "false".characters
+  private static let falseCount = JSSLexer.falseChars.count
   func matchFalse() -> JSSToken? {
-    if input.startsWith(JSSLexer.falseChars) {
-      chopFront(JSSLexer.falseChars.count)
+    if cInput.startsWith(JSSLexer.falseChars) {
+      cInput.eat(JSSLexer.falseCount)
       return JSSFalse()
     }
     return nil
   }
 
   private static let nullChars: String.CharacterView = "null".characters
+  private static let nullCount = JSSLexer.nullChars.count
   func matchNull() -> JSSToken? {
-    if input.startsWith(JSSLexer.nullChars) {
-      chopFront(JSSLexer.nullChars.count)
+    if cInput.startsWith(JSSLexer.nullChars) {
+      cInput.eat(JSSLexer.nullCount)
       return JSSNull()
     }
     return nil
@@ -139,7 +202,7 @@ class JSSLexer {
 
   private static let digitChars: String.CharacterView = "0123456789".characters
   func matchNumber() throws -> JSSToken? {
-    guard let first = input.first else {
+    guard let first = cInput.first else {
       return nil
     }
 
@@ -149,7 +212,7 @@ class JSSLexer {
 
     var intResult = String.CharacterView()
     intResult.append(first)
-    chopFront(1)
+    cInput.eat()
 
     // If the first digit is zero, then there can be no more digits before the frac or exp.
     if first != "0" {
@@ -159,11 +222,11 @@ class JSSLexer {
     }
 
     var fracResult: String.CharacterView?
-    if let fracFirst = input.first {
+    if let fracFirst = cInput.first {
       if fracFirst == "." {
         fracResult = String.CharacterView()
         fracResult!.append(".")
-        chopFront(1)
+        cInput.eat()
 
         guard let fracDigits = grabDigits() else {
           // There must be digits.
@@ -174,11 +237,11 @@ class JSSLexer {
     }
 
     var expResult: String.CharacterView?
-    if let expFirst = input.first {
+    if let expFirst = cInput.first {
       if expFirst == "E" || expFirst == "e" {
         expResult = String.CharacterView()
         expResult!.append(expFirst)
-        chopFront(1)
+        cInput.eat()
 
         if let sign = grabSign() {
           expResult!.append(sign)
@@ -198,9 +261,9 @@ class JSSLexer {
   }
 
   func grabSign() -> Character? {
-    if let signFirst = input.first {
+    if let signFirst = cInput.first {
       if signFirst == "+" || signFirst == "-" {
-        chopFront(1)
+        cInput.eat()
         return signFirst
       }
     }
@@ -208,23 +271,23 @@ class JSSLexer {
   }
 
   func grabDigits() -> String.CharacterView? {
-    let firstNonDigitIndex_ = input.indexOf { foo in
+    let firstNonDigitIndex_ = cInput.indexOf { foo in
       return !JSSLexer.digitChars.contains(foo)
     }
     guard let firstNonDigitIndex = firstNonDigitIndex_ else {
       // No non-digits, so everything is a digit.
-      let result = input
-      input = JSSLexer.emptyChars
+      let result = cInput.currInputToEnd
+      cInput.eatToEnd()
       return result
     }
 
-    if firstNonDigitIndex == input.startIndex {
+    if firstNonDigitIndex == cInput.startIndex {
       // No digits
       return nil
     }
 
-    let result = input.prefixUpTo(firstNonDigitIndex)
-    input = input.suffixFrom(firstNonDigitIndex)
+    let result = cInput.prefixToIndex(firstNonDigitIndex)
+    cInput.eatToIndex(firstNonDigitIndex)
     return result
   }
 
@@ -234,23 +297,30 @@ class JSSLexer {
    */
   func matchString() throws -> JSSToken? {
     // String always starts with a quote.
-    guard input[input.startIndex] == "\"" else {
+    guard cInput.first == "\"" else {
       return nil
     }
-    chopFront(1)  // Remove the leading quote
+    cInput.eat()
 
     var result = String.CharacterView()
+    // TODO: don't append to result. Instead create the result from a range of 'input'
+    result.reserveCapacity(25)  // long enough for most ids, I guess.
 
     var awaitingEscapeCharacter = false
-    inputloop: for ch in input {
+    var closeQuoteFound = false
+    inputLoop: while let ch = cInput.first {
+      cInput.eat()
+
       if !awaitingEscapeCharacter {
         switch ch {
-        case "\"": break inputloop  // closing quote. End of the string.
+        case "\"":
+          closeQuoteFound = true
+          break inputLoop  // closing quote. End of the string.
 
         case "\\":
           awaitingEscapeCharacter = true
           result.append(ch)
-          
+
         default: result.append(ch)
         }
       } else {
@@ -267,13 +337,10 @@ class JSSLexer {
     }
 
     // And string always ends with a quote.
-    guard result.count < input.count && input[input.startIndex.advancedBy(result.count)] == "\"" else {
+    guard closeQuoteFound else {
       // We started a string that we could not finish. This is an error!
       throw NSError(domain: "jswiftson", code: 1, userInfo: nil)
     }
-    // Because we are not translating or interpreting the characters in the string, the result
-    // will always have the same length as the consumed characters.  Add one for the trailing quote.
-    chopFront(1 + result.count)
 
     return JSSString(String(result))
   }
