@@ -1,0 +1,96 @@
+{
+   "rsp" : {
+      "tasks" : {
+         "list" : [
+            {
+               "id" : "39573143",
+               "taskseries" : [
+                  {
+                     "name" : "Pay state employment fubar",
+                     "id" : "267197724",
+                     "url" : "",
+                     "created" : "2015-08-09T05:03:15Z",
+                     "notes" : [],
+                     "modified" : "2015-08-17T13:34:05Z",
+                     "task" : {
+                        "added" : "2015-08-09T05:03:15Z",
+                        "priority" : "1",
+                        "due" : "",
+                        "id" : "457034073",
+                        "estimate" : "",
+                        "has_due_time" : "0",
+                        "deleted" : "",
+                        "postponed" : "1",
+                        "completed" : "2015-08-17T13:34:05Z"
+                     },
+                     "tags" : {
+                        "tag" : "na"
+                     },
+                     "location_id" : "",
+                     "source" : "android",
+                     "participants" : []
+                  },
+                  {
+                     "location_id" : "",
+                     "tags" : {
+                        "tag" : [
+                           "computer",
+                           "na"
+                        ]
+                     },
+                     "task" : {
+                        "due" : "2016-04-12T04:00:00Z",
+                        "added" : "2015-08-09T05:03:51Z",
+                        "priority" : "N",
+                        "deleted" : "",
+                        "completed" : "",
+                        "postponed" : "1",
+                        "id" : "457034492",
+                        "estimate" : "",
+                        "has_due_time" : "0"
+                     },
+                     "participants" : [],
+                     "source" : "android",
+                     "url" : "",
+                     "created" : "2015-08-09T05:03:51Z",
+                     "name" : "Make sure gtm isn't still charging you",
+                     "id" : "267197746",
+                     "modified" : "2016-04-11T19:53:11Z",
+                     "notes" : []
+                  },
+                  {
+                     "tags" : {
+                        "tag" : [
+                           "computer",
+                           "na"
+                        ]
+                     },
+                     "location_id" : "",
+                     "task" : {
+                        "priority" : "1",
+                        "added" : "2015-08-08T20:50:03Z",
+                        "due" : "2015-10-06T04:00:00Z",
+                        "has_due_time" : "0",
+                        "estimate" : "",
+                        "id" : "457001482",
+                        "deleted" : "",
+                        "completed" : "2015-10-06T18:57:49Z",
+                        "postponed" : "10"
+                     },
+                     "participants" : [],
+                     "source" : "email",
+                     "created" : "2015-08-08T20:50:03Z",
+                     "url" : "",
+                     "id" : "267185310",
+                     "name" : "Email accountant",
+                     "modified" : "2015-10-06T18:57:49Z",
+                     "notes" : []
+                  }
+               ]
+            }
+         ],
+         "rev" : "alzibftrbv022e238hv8zx34bmextqp"
+      },
+      "stat" : "ok"
+   }
+}

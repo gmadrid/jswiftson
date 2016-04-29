@@ -8,7 +8,7 @@
 
 import Foundation
 
-guard let fh = NSFileHandle(forReadingAtPath: "/Users/gmadrid/Dropbox/jswiftson/samples/rtmresponse.json") else {
+guard let fh = NSFileHandle(forReadingAtPath: "/Users/gmadrid/Dropbox/jswiftson/samples/shortresponse-formatted.json") else {
   print("Count not open file")
   exit(1)
 }
@@ -24,15 +24,20 @@ print(parser)
 
 print("starting parse")
 //let startTime = NSDate()
-let tree = try! parser.parse()
+let jsObject = try! parser.parse()
 //let endTime = NSDate()
 //let foo = endTime.timeIntervalSinceDate(startTime)
 //print(foo)
 
-print(tree)
+print(jsObject)
 print("finished parse")
 
+
+let doc = makeObjectDoc(jsObject)
+print("made doc")
 //let start2 = NSDate()
 //try! NSJSONSerialization.JSONObjectWithData(data, options: [])
 //let end2 = NSDate()
 //print(end2.timeIntervalSinceDate(start2))
+
+print(docPretty(70, doc: doc))

@@ -36,7 +36,11 @@ func <>(doc1: Doc, doc2: Doc) -> Doc {
   case .Nil:
     return doc2
   case .Text(let str, let ldoc):
-    return .Text(str: str, doc: ldoc <> doc2)
+    let concat = ldoc <> doc2
+    if case .Text(let cstr, let cldoc) = concat {
+      return .Text(str: str + cstr, doc: cldoc)
+    }
+    return .Text(str: str, doc: concat)
   case .Line(let i, let ldoc):
     return .Line(i: i, doc: ldoc <> doc2)
   case .Union(let x, let y):
@@ -95,6 +99,8 @@ func docFlatten(doc: Doc) -> Doc {
     return docFlatten(x)
   }
 }
+
+typealias DocThunk = Doc -> Doc
 
 func docBest(width: Int, used: Int, doc: Doc) -> Doc {
   switch doc {

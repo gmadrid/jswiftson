@@ -25,6 +25,9 @@
 		C7A30EBB1CC928E600C33304 /* JSSLexerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */; };
 		C7B5F7D71CC9DAA8006CD9F2 /* JSSLexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A30EB81CC9208E00C33304 /* JSSLexer.swift */; };
 		C7CAC02F1CCAAA2D000FB738 /* JSSParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CAC02E1CCAAA2D000FB738 /* JSSParserTests.swift */; };
+		C7DA320D1CD01C92006DFF01 /* JSSDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA320C1CD01C92006DFF01 /* JSSDoc.swift */; };
+		C7DA320E1CD01CF2006DFF01 /* JSSDoc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DA320C1CD01C92006DFF01 /* JSSDoc.swift */; };
+		C7DA320F1CD01CF9006DFF01 /* Doc.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78DDAFD1CCE6C5000A80626 /* Doc.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +68,7 @@
 		C7A30EB81CC9208E00C33304 /* JSSLexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSLexer.swift; sourceTree = "<group>"; };
 		C7A30EBA1CC928E600C33304 /* JSSLexerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSLexerTests.swift; sourceTree = "<group>"; };
 		C7CAC02E1CCAAA2D000FB738 /* JSSParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSParserTests.swift; sourceTree = "<group>"; };
+		C7DA320C1CD01C92006DFF01 /* JSSDoc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSDoc.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,7 @@
 				C7A30EB81CC9208E00C33304 /* JSSLexer.swift */,
 				C7093A7A1CCA706E008F3AE7 /* JSSParser.swift */,
 				C78DDAFD1CCE6C5000A80626 /* Doc.swift */,
+				C7DA320C1CD01C92006DFF01 /* JSSDoc.swift */,
 			);
 			path = jswiftson;
 			sourceTree = "<group>";
@@ -277,8 +282,10 @@
 			files = (
 				C78DDB0F1CCFAB1700A80626 /* JSSTree.swift in Sources */,
 				C78DDB091CCFA9F500A80626 /* main.swift in Sources */,
+				C7DA320F1CD01CF9006DFF01 /* Doc.swift in Sources */,
 				C78DDB0E1CCFAB1000A80626 /* JSSLexer.swift in Sources */,
 				C78DDB0D1CCFAAD200A80626 /* JSSParser.swift in Sources */,
+				C7DA320E1CD01CF2006DFF01 /* JSSDoc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +297,7 @@
 				C7A30EB91CC9208E00C33304 /* JSSLexer.swift in Sources */,
 				C78DDAFE1CCE6C5000A80626 /* Doc.swift in Sources */,
 				C7093A7B1CCA706E008F3AE7 /* JSSParser.swift in Sources */,
+				C7DA320D1CD01C92006DFF01 /* JSSDoc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +500,7 @@
 				C78DDB0B1CCFA9F500A80626 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C7A30E981CC9205200C33304 /* Build configuration list for PBXProject "jswiftson" */ = {
 			isa = XCConfigurationList;
