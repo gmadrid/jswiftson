@@ -29,6 +29,11 @@ func makePairDoc(pair: JSSPair) -> Doc {
   return makeStringDoc(pair.str)
     <> docText(": ")
     <> makeValueDoc(pair.val)
+
+  // This may be what I ultimately want, but it's too slow without a lazy group.
+//  return docGroup(makeStringDoc(pair.str)
+//    <> docText(": ")
+//    <> docNest(2, docLine() <> makeValueDoc(pair.val)))
 }
 
 func makeStringDoc(str: JSSString) -> Doc {

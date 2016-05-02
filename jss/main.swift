@@ -8,7 +8,9 @@
 
 import Foundation
 
-guard let fh = NSFileHandle(forReadingAtPath: "/Users/gmadrid/Dropbox/jswiftson/samples/shortresponse-formatted.json") else {
+//let fn = "/Users/gmadrid/Dropbox/jswiftson/samples/rtmresponse.json"
+let fn = "/Users/gmadrid/Dropbox/jswiftson/samples/shortresponse-formatted.json"
+guard let fh = NSFileHandle(forReadingAtPath: fn) else {
   print("Count not open file")
   exit(1)
 }
